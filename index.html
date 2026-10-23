@@ -1,6 +1,74 @@
 <!DOCTYPE html>
 <html lang="en"> 
   <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-433XCW8QDX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-433XCW8QDX');
+</script>
+	<meta charset = "utf-8"/>
+	<meta name="google-site-verification" content="ouCouGqVLxuDeXoQCqp5EmB-gzAAtTMjPl36F5xg9vQ" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A fish tank.">
+	<title>A_fish_tank</title>
+	<link href="Style.css" rel="stylesheet">
+	<link rel="icon" type="image/x-icon" href="images/favicon.png">
+  </head>
+  <body>
+	<!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas> 
+  </body>
+  <!-- Include the processing.js library -->
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+  <script>
+  // Initialize with 0 fish so the canvas can render immediately
+  var numberoffish = 0; 
+
+  // Delay the prompt dialog by 1 second (1000ms) to allow the canvas to load
+  setTimeout(function() {
+    numberoffish = prompt("enter a number of fish", 0);
+  }, 1000);
+
+  var programCode = function(processingInstance) {
+    with (processingInstance) {
+      size(window.innerWidth, window.innerHeight); 
+      frameRate(2);
+        
+      draw = function() {
+        var n = 0;
+
+        var makeafish = function(x, y, r, g, b) {
+            fill(r, g, b);
+            bezier(x-20, y-160, x+130, y, x+150, y-280, x-20, y-120);
+            fill(0, 0, 0);
+            ellipse(x+80, y-150, 10, 10);
+            line(x+80, y-135, x+100, y-140);
+        };
+
+        background(0, 255, 208);
+
+        // Dynamically reads the updated 'numberoffish' variable once prompt is filled
+        while (n < numberoffish) { 
+            makeafish(random(0, window.innerWidth), random(0, window.innerHeight), random(0, 255), random(0, 255), random(0,255));
+            n++;
+        }
+      };
+    }
+  };
+
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas");
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode);
+  </script>
+</html>
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
