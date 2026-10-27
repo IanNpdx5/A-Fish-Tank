@@ -28,9 +28,15 @@ $(function () {
       };
     }
   };
-
+  
   // Get the canvas that ProcessingJS will use
   var canvas = document.getElementById("mycanvas");
+
+  var resizeCanvas = function() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  
   // Pass the function to ProcessingJS constructor
   var processingInstance = new Processing(canvas, programCode);
   
@@ -38,4 +44,5 @@ $(function () {
     numberoffish = prompt("Number of fish:")
     document.getElementById("btndiv").style.display = "none";
   });
+  window.addEventListener("resize", resizeCanvas, false);
 })
