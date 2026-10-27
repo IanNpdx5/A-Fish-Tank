@@ -36,5 +36,6 @@ $(function () {
   
   document.getElementById("btn").addEventListener("click", () => {
     numberoffish = prompt("Number of fish:")
+    document.getElementById("btndiv").style.display = "none";
   });
 })

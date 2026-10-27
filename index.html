@@ -23,6 +23,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	<title>A_fish_tank</title>
 	<link href="Style.css" rel="stylesheet">
 	<link rel="icon" type="image/x-icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
   </head>
   <body>
 	  <!-- Google Tag Manager (noscript) -->
@@ -31,6 +34,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 	<!--This draws the canvas on the webpage -->
     <canvas id="mycanvas"></canvas> 
+    <div id="btndiv" style="position:fixed;top:0;left:0;right:0;padding:1rem;background:#222;color:#fff;">
+    <button id="btn">Get some fish</button>
+    </div>
 	  <div id="consent-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;padding:1rem;background:#222;color:#fff;">
     We use cookies for analytics and ads.
     <button id="accept-all">Accept all</button>
@@ -64,5 +70,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </body>
   <!-- Include the processing.js library -->
   <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js"></script>
   <script src="Code.js"></script>
 </html>

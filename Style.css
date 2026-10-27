@@ -3,3 +3,6 @@
 	        top: 0px;
 	        left: 0px;
 	    }
+button, body {
+	font-family: "Orbitron", Arial, sans-serif;
+}
