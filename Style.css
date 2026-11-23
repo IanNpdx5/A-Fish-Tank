@@ -123,7 +123,9 @@ body {
     margin: 0 0 0.5rem;
     background: linear-gradient(90deg, #7dd3fc, #38bdf8, #a5f3fc);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .tank-info p {

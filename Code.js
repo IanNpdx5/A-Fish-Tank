@@ -52,7 +52,7 @@ $(function () {
 
   window.addEventListener("resize", resizeCanvas, false);
 
-   // ---- Full Screen Toggle (Button + Double-Click Canvas) ----
+  // ---- Full Screen Toggle (Button + Double-Click Canvas) ----
   var fsBtn = document.getElementById("fullscreen-btn");
 
   function updateButtonLabel() {
