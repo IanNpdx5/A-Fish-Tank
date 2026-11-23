@@ -1,6 +1,15 @@
 $(function () {
   var numberoffish = 0;
   var canvas = document.getElementById("mycanvas");
+    canvas.addEventListener("dblclick", function () {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else if (document.body.classList.contains("is-fullscreen")) {
+      document.body.classList.remove("is-fullscreen");
+      updateButtonLabel();
+    }
+  });
+
 
   var programCode = function (processingInstance) {
     with (processingInstance) {
