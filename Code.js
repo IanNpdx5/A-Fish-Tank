@@ -52,11 +52,45 @@ $(function () {
 
   window.addEventListener("resize", resizeCanvas, false);
 
-  // ---- Full Screen Toggle ----
-    canvas.addEventListener("dblclick", function () {
-    if (document.fullscreenElement) {
+   // ---- Full Screen Toggle (Button + Double-Click Canvas) ----
+  var fsBtn = document.getElementById("fullscreen-btn");
+
+  function updateButtonLabel() {
+    var isFull = document.fullscreenElement || document.body.classList.contains("is-fullscreen");
+    fsBtn.textContent = isFull ? "Exit Full Screen" : "Full Screen";
+    resizeCanvas();
+  }
+
+  function toggleFullScreen() {
+    var isNativeFull = !!document.fullscreenElement;
+    var isFallbackFull = document.body.classList.contains("is-fullscreen");
+
+    if (isNativeFull) {
       document.exitFullscreen();
-    } else if (document.body.classList.contains("is-fullscreen")) {
+    } else if (isFallbackFull) {
+      document.body.classList.remove("is-fullscreen");
+      updateButtonLabel();
+    } else if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(function () {
+        document.body.classList.add("is-fullscreen");
+        updateButtonLabel();
+      });
+    } else {
+      document.body.classList.add("is-fullscreen");
+      updateButtonLabel();
+    }
+  }
+
+  fsBtn.addEventListener("click", toggleFullScreen);
+  canvas.addEventListener("dblclick", toggleFullScreen);
+
+  document.addEventListener("fullscreenchange", function () {
+    document.body.classList.toggle("is-fullscreen", !!document.fullscreenElement);
+    updateButtonLabel();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && document.body.classList.contains("is-fullscreen")) {
       document.body.classList.remove("is-fullscreen");
       updateButtonLabel();
     }
