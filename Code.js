@@ -1,6 +1,6 @@
 $(function () {
-  // Initialize with 0 fish so the canvas can render immediately
   var numberoffish = 0;
+  var canvas = document.getElementById("mycanvas");
 
   var programCode = function (processingInstance) {
     with (processingInstance) {
@@ -20,72 +20,80 @@ $(function () {
 
         background(0, 255, 208);
 
-        // Dynamically reads the updated 'numberoffish' variable once prompt is filled
         while (n < numberoffish) {
-          makeafish(random(0, window.innerWidth), random(0, window.innerHeight), random(0, 255), random(0, 255), random(0, 255));
+          makeafish(
+            random(0, width),
+            random(0, height),
+            random(0, 255),
+            random(0, 255),
+            random(0, 255)
+          );
           n++;
         }
       };
     }
   };
 
-  // Get the canvas that ProcessingJS will use
-  var canvas = document.getElementById("mycanvas");
-
-  var resizeCanvas = function () {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  };
-
-  // Pass the function to ProcessingJS constructor
   var processingInstance = new Processing(canvas, programCode);
 
-  document.getElementById("btn").addEventListener("click", () => {
-    numberoffish = prompt("Number of fish:");
-  });
-  window.addEventListener("resize", resizeCanvas, false);
-   var fsBtn = document.getElementById('fullscreen-btn');
-      var canvas = document.getElementById('mycanvas');
+  var resizeCanvas = function () {
+    processingInstance.size(window.innerWidth, window.innerHeight);
+  };
 
-      function updateButtonLabel() {
-        var isFull = document.fullscreenElement || document.body.classList.contains('is-fullscreen');
-        fsBtn.textContent = isFull ? 'Exit Full Screen' : 'Full Screen';
+  document.getElementById("btn").addEventListener("click", function () {
+    var input = prompt("Number of fish (1 - 500):");
+    if (input !== null) {
+      var parsed = parseInt(input, 10);
+      if (!isNaN(parsed) && parsed >= 0) {
+        numberoffish = Math.min(parsed, 500);
       }
+    }
+  });
 
-      fsBtn.onclick = function () {
-        var isNativeFull = !!document.fullscreenElement;
-        var isFallbackFull = document.body.classList.contains('is-fullscreen');
+  window.addEventListener("resize", resizeCanvas, false);
 
-        if (isNativeFull) {
-          document.exitFullscreen();
-        } else if (isFallbackFull) {
-          document.body.classList.remove('is-fullscreen');
-          updateButtonLabel();
-        } else if (document.documentElement.requestFullscreen) {
-          document.documentElement.requestFullscreen().catch(function () {
-            document.body.classList.add('is-fullscreen');
-            updateButtonLabel();
-          });
-        } else {
-          document.body.classList.add('is-fullscreen');
-          updateButtonLabel();
-        }
-      };
+  // ---- Full Screen Toggle ----
+  var fsBtn = document.getElementById("fullscreen-btn");
 
-      document.addEventListener('fullscreenchange', function () {
-        if (document.fullscreenElement) {
-          document.body.classList.add('is-fullscreen');
-        } else {
-          document.body.classList.remove('is-fullscreen');
-        }
+  function updateButtonLabel() {
+    var isFull = document.fullscreenElement || document.body.classList.contains("is-fullscreen");
+    fsBtn.textContent = isFull ? "Exit Full Screen" : "Full Screen";
+    resizeCanvas();
+  }
+
+  fsBtn.onclick = function () {
+    var isNativeFull = !!document.fullscreenElement;
+    var isFallbackFull = document.body.classList.contains("is-fullscreen");
+
+    if (isNativeFull) {
+      document.exitFullscreen();
+    } else if (isFallbackFull) {
+      document.body.classList.remove("is-fullscreen");
+      updateButtonLabel();
+    } else if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(function () {
+        document.body.classList.add("is-fullscreen");
         updateButtonLabel();
       });
+    } else {
+      document.body.classList.add("is-fullscreen");
+      updateButtonLabel();
+    }
+  };
 
-      // Allow pressing Escape to exit fallback full-screen mode
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && document.body.classList.contains('is-fullscreen')) {
-          document.body.classList.remove('is-fullscreen');
-          updateButtonLabel();
-        }
-      });
-    });
+  document.addEventListener("fullscreenchange", function () {
+    if (document.fullscreenElement) {
+      document.body.classList.add("is-fullscreen");
+    } else {
+      document.body.classList.remove("is-fullscreen");
+    }
+    updateButtonLabel();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && document.body.classList.contains("is-fullscreen")) {
+      document.body.classList.remove("is-fullscreen");
+      updateButtonLabel();
+    }
+  });
+});
